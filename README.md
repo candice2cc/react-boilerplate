@@ -7,7 +7,6 @@
 - isomorphic-fetch
 - es6-promise
 - express
-- log4js
 
 
 
