@@ -1,0 +1,21 @@
+.navbar{
+    position: fixed;
+    left:0;
+    top:50px;
+    width: 128px;
+    height: 100%;
+
+
+    background: #000000;
+
+    .link{
+        display: block;
+        padding: 10px 30px;
+        color: #ffffff;
+
+        &.active{
+            color:#127db3;
+        }
+    }
+
+}
