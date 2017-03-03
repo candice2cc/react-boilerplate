@@ -1,3 +1,6 @@
+###教程
+[react boilerplate设计&&技术栈](http://www.jianshu.com/p/5ddc498283c6)
+
 ###技术栈
 - react
 - redux
@@ -26,6 +29,7 @@
              /sass/         公共样式和公共组件样式
              /store/        redux store
              /util/         工具类与函数
+             /config/       配置相关
      /module_a/ a模块
              /components/
              /containers/
