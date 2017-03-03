@@ -25,8 +25,8 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, '../build/client'),
-        filename: '[name].js',
-        chunkFilename: 'chunk.[name]-[hash].js',
+        filename: 'js/[name].js',
+        chunkFilename: 'js/chunk.[name]-[hash].js',
         publicPath: '/'
     },
     module: {
@@ -42,15 +42,16 @@ module.exports = {
             loader: ExtractTextPlugin.extract('style', 'css?modules&camelCase&importLoaders=1&localIdentName=[hash:base64:8]!postcss!sass')
 
         }, {
-            test: /\.(jpg|png|gif|webp)$/,
-            loader: 'url?limit=8000'
-        }, {
-            test: /\.json$/,
-            loader: 'json'
-        }, {
-            test: /\.html$/,
-            loader: 'html?minimize=false'
-        }]
+            test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)/,
+            loader: 'url?limit=8000&name=img/[name]-[hash].[ext]'
+        },
+            {
+                test: /\.json$/,
+                loader: 'json'
+            }, {
+                test: /\.html$/,
+                loader: 'html?minimize=false'
+            }]
     },
     postcss: [autoprefixer({browsers: ['> 5%']})],
     resolve: {extensions: ['', '.js', '.json', '.scss', '.html']},
@@ -59,7 +60,7 @@ module.exports = {
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.CommonsChunkPlugin({
             names: ['vendor'],
-            filename: '[name].js'
+            filename: 'js/[name].js'
         }),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
@@ -79,6 +80,6 @@ module.exports = {
 
         }),
         new ProgressBarPlugin({summary: false}),
-        new ExtractTextPlugin('[name].css', {allChunks: true})
+        new ExtractTextPlugin('css/[name].css', {allChunks: true})
     ],
 };

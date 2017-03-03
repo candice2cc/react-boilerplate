@@ -11,6 +11,8 @@ import styles from '../sass/Root'
 import Header from './Header'
 import Navbar from './Navbar'
 
+import addGameSvg from '../assets/item-addgame.svg'
+
 
 class Root extends Component {
     static contextTypes = {
@@ -27,6 +29,8 @@ class Root extends Component {
 
                 <div className={styles.main}>
                     {children}
+
+                    <img src={addGameSvg}/>
                 </div>
 
             </div>

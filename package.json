@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development babel-node ./server/app.dev.js",
     "build": "npm run clean &&cross-env NODE_ENV=production webpack --config ./tools/webpack.config.prod.js --progress && babel ./server -d ./build/server",
-    "clean": "rimraf ./dist/client/* && rimraf ./dist/server/*",
+    "clean": "rimraf ./build/client/* && rimraf ./build/server/*",
     "start": "node ./build/server/app.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -45,7 +45,7 @@
     "rimraf": "^2.5.4",
     "sass-loader": "^4.0.1",
     "style-loader": "^0.13.1",
-    "url-loader": "^0.5.7",
+    "url-loader": "^0.5.8",
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.9.0",
     "webpack-dev-server": "^1.16.2",

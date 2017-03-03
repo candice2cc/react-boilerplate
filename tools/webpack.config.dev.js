@@ -25,8 +25,8 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, '../build/client'),
-        filename: '[name].js',
-        chunkFilename: 'chunk.[name]-[hash].js',
+        filename: 'js/[name].js',
+        chunkFilename: 'js/chunk.[name]-[hash].js',
         publicPath: '/'
     },
     module: {
@@ -45,23 +45,24 @@ module.exports = {
                 'sass'
             ]
         }, {
-            test: /\.(jpg|png|gif|webp)$/,
-            loader: 'url?limit=8000'
-        }, {
-            test: /\.json$/,
-            loader: 'json'
-        }, {
-            test: /\.html$/,
-            loader: 'html?minimize=false'
-        }]
+            test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)/,
+            loader: 'url?limit=8000&name=img/[name]-[hash].[ext]'
+        },
+            {
+                test: /\.json$/,
+                loader: 'json'
+            }, {
+                test: /\.html$/,
+                loader: 'html?minimize=false'
+            }]
     },
-    resolve: {extensions: ['', '.js', '.json', '.scss','.html']},
+    resolve: {extensions: ['', '.js', '.json', '.scss', '.html']},
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.CommonsChunkPlugin({
             names: ['vendor'],
-            filename: '[name].js'
+            filename: 'js/[name].js'
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
@@ -69,7 +70,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: './index.html',
             template: './client/index.html',
-            favicon:'./client/common/assets/favicon.ico',
+            favicon: './client/common/assets/favicon.ico',
         }),
         new ProgressBarPlugin({summary: false})
     ],

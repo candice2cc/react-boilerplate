@@ -3,7 +3,7 @@
  */
 
 import {buildGetPromise, errData, requestError} from './action_util'
-import {URL} from '../common/api'
+import {URL} from '../config/api'
 
 export const RECEIVE_COURSE = 'RECEIVE_COURSE';
 
