@@ -1,17 +1,17 @@
 /**
  * Created by candice on 17/2/4.
  */
-import {REQUEST_BOOK, RECEIVE_BOOK} from '../actions/book_actions'
+import {RECEIVE_BOOK_LIST} from '../actions/book_actions'
 
 const initialState = {
-    retData: []
+    bookList: []
 };
-export function listBook(state = initialState, action) {
+export function bookState(state = initialState, action) {
     switch (action.type) {
-        case RECEIVE_BOOK:
+        case RECEIVE_BOOK_LIST:
             return {
                 ...state,
-                retData: action.retData
+                bookList: action.bookList
             };
         default:
             return state;

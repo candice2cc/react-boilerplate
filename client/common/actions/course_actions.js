@@ -5,15 +5,15 @@
 import {buildGetPromise, errData, requestError} from './action_util'
 import {URL} from '../config/api'
 
-export const RECEIVE_COURSE = 'RECEIVE_COURSE';
+export const RECEIVE_COURSE_LIST = 'RECEIVE_COURSE_LIST';
 
 
-export const fetchCourseList = ()=>(dispatch)=> {
+export const queryCourseList = ()=>(dispatch)=> {
     return buildGetPromise(URL.course.list, {})
         .then(response => response.json())
         .then(json => {
             if (json.errNum === 0) {
-                dispatch(receiveProfit(json))
+                dispatch(receiveCourseList(json))
             } else {
                 dispatch(requestError(json))
             }
@@ -24,10 +24,10 @@ export const fetchCourseList = ()=>(dispatch)=> {
         })
 };
 
-export const receiveProfit = (response) => {
+export const receiveCourseList = (response) => {
     return {
-        type: RECEIVE_COURSE,
-        retData: response.retData,
+        type: RECEIVE_COURSE_LIST,
+        courseList: response.retData,
         pageSize: response.pageSize,
         pageNum: response.pageNum,
         totalSize: response.totalSize,

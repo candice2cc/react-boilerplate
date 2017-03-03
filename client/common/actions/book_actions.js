@@ -5,16 +5,15 @@
 import {buildGetPromise, errData, requestError} from './action_util'
 import {URL} from '../config/api'
 
-export const REQUEST_BOOK = 'REQUEST_BOOK';
-export const RECEIVE_BOOK = 'RECEIVE_BOOK';
+export const RECEIVE_BOOK_LIST = 'RECEIVE_BOOK_LIST';
 
 
-export const fetchBookList = ()=>(dispatch)=> {
+export const queryBookList = ()=>(dispatch)=> {
     return buildGetPromise(URL.book.list, {})
         .then(response => response.json())
         .then(json => {
             if (json.errNum === 0) {
-                dispatch(receiveBlurApp(json))
+                dispatch(receiveBookList(json))
             } else {
                 dispatch(requestError(json))
             }
@@ -24,17 +23,12 @@ export const fetchBookList = ()=>(dispatch)=> {
             dispatch(requestError(errData))
         })
 };
-export const requestApp = ()=> {
-    return {
-        type: REQUEST_BOOK
-    }
 
-};
 
-export const receiveBlurApp = (response) => {
+export const receiveBookList = (response) => {
     return {
-        type: RECEIVE_BOOK,
-        retData: response.retData,
+        type: RECEIVE_BOOK_LIST,
+        bookList: response.retData,
     }
 };
 

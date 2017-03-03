@@ -9,7 +9,7 @@ const routes = {
             indexRoute: {
                 getComponent(nextState, callback){
                     require.ensure([], require=> {
-                        callback(null, require('./book/containers/Book').default)
+                        callback(null, require('./book/containers/BookContainer').default)
                     }, 'book')
                 }
             },
@@ -18,7 +18,7 @@ const routes = {
                     path: 'book',
                     getComponent(nextState, callback) {
                         require.ensure([], require => {
-                            callback(null, require('./book/containers/Book').default)
+                            callback(null, require('./book/containers/BookContainer').default)
                         }, 'book')
                     }
                 },
@@ -26,7 +26,7 @@ const routes = {
                     path: 'course',
                     getComponent(nextState, callback) {
                         require.ensure([], require => {
-                            callback(null, require('./course/containers/Course').default)
+                            callback(null, require('./course/containers/CourseContainer').default)
                         }, 'course')
                     }
                 }
