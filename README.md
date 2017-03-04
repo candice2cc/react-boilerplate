@@ -1,6 +1,3 @@
-###教程
-[react boilerplate设计&&技术栈](http://www.jianshu.com/p/5ddc498283c6)
-
 ###技术栈
 - react
 - redux
