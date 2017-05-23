@@ -11,9 +11,9 @@ let app = express();
 // webpack
 (function () {
     // Step 1: Create & configure a webpack compiler
-    var webpack = require('webpack');
-    var webpackConfig = require('../tools/webpack.config.dev');
-    var compiler = webpack(webpackConfig);
+    let webpack = require('webpack');
+    let webpackConfig = require('../tools/webpack.config.dev');
+    let compiler = webpack(webpackConfig);
 
     // Step 2: Attach the dev middleware to the compiler & the server
     app.use(require("webpack-dev-middleware")(compiler, {

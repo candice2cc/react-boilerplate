@@ -3,7 +3,7 @@
  */
 import React, {Component, PropTypes} from 'react'
 
-import '../sass/common.scss'  //import公共样式
+import '../sass/global/common.scss'  //import公共样式
 
 import styles from '../sass/Root'
 
@@ -15,9 +15,9 @@ import addGameSvg from '../assets/item-addgame.svg'
 
 
 class Root extends Component {
-    static contextTypes = {
-        router: PropTypes.object.isRequired,
-    };
+    // static contextTypes = {
+    //     router: PropTypes.object.isRequired,
+    // };
 
     render() {
         let {children} = this.props;

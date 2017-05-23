@@ -17,37 +17,57 @@ module.exports = {
         vendor: [
             'react',
             'react-dom',
+            'react-router',
             'redux',
             'react-redux',
+            'react-router-redux',
+            'redux-thunk',
             'es6-promise',
-            'isomorphic-fetch'
+            'isomorphic-fetch',
         ]
     },
     output: {
         path: path.resolve(__dirname, '../build/client'),
         filename: 'js/[name].js',
-        chunkFilename: 'js/chunk.[name]-[hash].js',
+        chunkFilename: 'js/chunk.[name].js',
         publicPath: '/'
     },
     module: {
-        loaders: [{
-            test: /\.js$/,
-            exclude: /node_modules/,
-            loader: 'babel',
-            query: {
-                presets: ['es2015', 'react', 'stage-0', 'react-hmre'],
-            }
-        }, {
-            test: /\.scss$/,
-            loaders: [
-                'style',
-                'css?modules&camelCase&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:8]',
-                'sass'
-            ]
-        }, {
-            test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)/,
-            loader: 'url?limit=8000&name=img/[name]-[hash].[ext]'
-        },
+        loaders: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel',
+                query: {
+                    presets: ['es2015', 'react', 'stage-0', 'react-hmre'],
+                }
+            },
+            {
+                test: /\.scss$/,
+                exclude: /global/,
+                loaders: [
+                    'style',
+                    'css?modules&camelCase&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:8]',
+                    'sass'
+                ]
+            },
+            {
+                test: /\.scss/,
+                include: /global/,
+                loaders: [
+                    'style',
+                    'css',
+                    'sass'
+                ]
+            },
+            {
+                test: /\.(png|jpg|jpeg|gif)$/,
+                loader: 'url?limit=8000&name=img/[name].[ext]'
+            },
+            {
+                test: /\.(woff|woff2|ttf|eot|svg)/,
+                loader: 'url?limit=8000&name=img/[name].[ext]'
+            },
             {
                 test: /\.json$/,
                 loader: 'json'

@@ -17,10 +17,13 @@ module.exports = {
         vendor: [
             'react',
             'react-dom',
+            'react-router',
             'redux',
             'react-redux',
+            'react-router-redux',
+            'redux-thunk',
             'es6-promise',
-            'isomorphic-fetch'
+            'isomorphic-fetch',
         ]
     },
     output: {
@@ -30,21 +33,39 @@ module.exports = {
         publicPath: '/'
     },
     module: {
-        loaders: [{
-            test: /\.js$/,
-            exclude: /node_modules/,
-            loader: 'babel',
-            query: {
-                presets: ['es2015', 'react', 'stage-0'],
-            }
-        }, {
-            test: /\.scss$/,
-            loader: ExtractTextPlugin.extract('style', 'css?modules&camelCase&importLoaders=1&localIdentName=[hash:base64:8]!postcss!sass')
+        loaders: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel',
+                query: {
+                    presets: ['es2015', 'react', 'stage-0'],
+                }
+            },
+            {
+                test: /\.scss$/,
+                exclude: /global/,
+                loader: ExtractTextPlugin.extract('style', 'css?modules&camelCase&importLoaders=1&localIdentName=[hash:base64:8]!postcss!sass')
 
-        }, {
-            test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)/,
-            loader: 'url?limit=8000&name=img/[name]-[hash].[ext]'
-        },
+            },
+
+            {
+                test: /\.scss/,
+                include: /global/,
+                loaders: [
+                    'style',
+                    'css',
+                    'sass'
+                ]
+            },
+            {
+                test: /\.(png|jpg|jpeg|gif)$/,
+                loader: 'url?limit=8000&name=img/[name]-[hash:5].[ext]'
+            },
+            {
+                test: /\.(woff|woff2|ttf|eot|svg)/,
+                loader: 'url?limit=8000&name=img/[name]-[hash:5].[ext]'
+            },
             {
                 test: /\.json$/,
                 loader: 'json'
@@ -75,7 +96,7 @@ module.exports = {
             filename: './index.html',
             template: './client/index.html',
             chunksSortMode: 'none',
-            favicon:'./client/common/assets/favicon.ico',
+            favicon: './client/common/assets/favicon.ico',
             hash: true, //为静态资源生成hash值
 
         }),

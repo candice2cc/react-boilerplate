@@ -1,29 +1,49 @@
 /**
  * Created by candice on 17/2/3.
  */
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
 
-import Book from '../components/Book'
-import {queryBookList} from '../../common/actions'
+import React, {Component} from 'react'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux';
+
+import {load} from '../../redux/modules/book'
+import styles from '../sass/Book.scss'
 
 class BookContainer extends Component {
-
-    componentDidMount() {
-        this.props.dispatch(queryBookList())
+    componentWillMount() {
+        this.props.load();
     }
+
     render() {
+        let {bookList} = this.props;
+        let bookNodes = bookList.map((item) => {
+            return (
+                <li key={item.id}>{item.name}</li>
+            )
+        });
         return (
-            <Book bookList={this.props.bookList}/>
+            <div className={styles.root}>
+                <ul>
+                    {bookNodes}
+                </ul>
+            </div>
         )
     }
 
 }
-const mapStateToProps = (state, props)=> {
+const mapStateToProps = (state, ownProps) => {
     return {
-        bookList: state.bookState.bookList,
+        bookList: state.book.dataList
+    };
+};
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        load: bindActionCreators(load, dispatch),
     }
 };
 
-BookContainer = connect(mapStateToProps)(BookContainer);
-export default BookContainer;
+BookContainer = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(BookContainer);
+export default BookContainer

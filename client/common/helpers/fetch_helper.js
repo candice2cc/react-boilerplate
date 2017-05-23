@@ -1,5 +1,5 @@
 /**
- * Created by candice on 17/2/4.
+ * Created by candice on 17/4/17.
  */
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
@@ -25,7 +25,12 @@ export function getParams(json) {
 }
 
 export function buildGetPromise(url, data) {
-    return fetch(url + '?' + getParams(data), {
+    let search = '';
+    if (data) {
+        search = '?' + getParams(data);
+    }
+
+    return fetch(url + search, {
         credentials: 'same-origin',
         cache: 'no-cache'
     });
@@ -42,18 +47,4 @@ export function buildPostPromise(url, data) {
             cache: 'no-cache',
             body: getParams(data)
         })
-}
-
-export const errData = {
-    errNum: -1,
-    errShowMsg: '服务器繁忙,请稍后重试!'
-};
-
-export const REQUEST_ERROR = 'REQUEST_ERROR';
-
-export function requestError(response) {
-    return {
-        type: REQUEST_ERROR,
-        errMsg: response.errShowMsg
-    }
 }

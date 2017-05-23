@@ -7,7 +7,7 @@ let router = express.Router();
 
 router.get('/list', (req, res, next)=> {
     return res.json({
-        "errNum": 0,
+        "errNo": 0,
         "errMsg": "",
         "retData": [
             {

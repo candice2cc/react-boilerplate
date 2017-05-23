@@ -3,13 +3,9 @@
  */
 import React, {Component} from 'react'
 import {IndexLink, Link} from 'react-router'
-import styles from '../sass/Navbar'
+import styles from '../sass/Navbar.scss'
 
 class Navbar extends Component {
-    constructor() {
-        super()
-    }
-
     render() {
         return (
             <nav className={styles.navbar}>

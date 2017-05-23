@@ -2,31 +2,52 @@
  * Created by candice on 17/2/3.
  */
 import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {queryCourseList} from '../../common/actions'
-import Course from '../components/Course'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux';
+
+import {load} from '../../redux/modules/course'
+
+import styles from '../sass/Course.scss'
+
 
 class CourseContainer extends Component {
-
-
-    componentDidMount() {
-        this.props.dispatch(queryCourseList())
+    componentWillMount() {
+        this.props.load();
     }
 
-
     render() {
-        return <Course courseList={this.props.courseList}/>
+        let {courseList} = this.props;
+        let courseNodes = courseList.map((item) => {
+            return (
+                <li key={item.id}>{item.name}</li>
+            )
+        });
+
+        return (
+            <div>
+                <ul>
+                    {courseNodes}
+                </ul>
+
+            </div>
+        )
 
     }
 
 }
-
-const mapStateToProps = (state, props)=> {
+const mapStateToProps = (state, ownProps) => {
     return {
-        courseList: state.courseState.coursePageInfo.courseList,
-
+        courseList: state.course.dataList
+    };
+};
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        load: bindActionCreators(load, dispatch),
     }
 };
 
-CourseContainer = connect(mapStateToProps)(CourseContainer);
-export default CourseContainer;
+CourseContainer = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(CourseContainer);
+export default CourseContainer

@@ -4,9 +4,11 @@
 - react-redux
 - react-router
 - redux-thunk
+- react-router-redux
 - isomorphic-fetch
 - es6-promise
 - express
+
 
 
 
@@ -18,14 +20,11 @@
 
 /client/     前端目录
      /common/ 公共代码
-             /actions/   redux actions
              /assets/    公共静态资源
              /components/   公共木偶组件
              /containers/   公共智能组件
-             /reducers/     redux reducers
              /sass/         公共样式和公共组件样式
-             /store/        redux store
-             /util/         工具类与函数
+             /helpers/         工具类与函数
              /config/       配置相关
      /module_a/ a模块
              /components/
@@ -35,6 +34,10 @@
              /components/   木偶组件
              /containers/   智能组件
              /sass/         样式
+     /redux/   redux duck
+            /middleware/ redux中间件
+            /modules/   redux模块action、reducer定义
+            /store/    redux store
      /index.html   入口html文件
      /index.js     入口js文件
      /routes.js    路由文件

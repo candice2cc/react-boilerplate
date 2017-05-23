@@ -54,7 +54,8 @@ react-redux主要是用来帮助react component与redux的“链接”的高阶�
 redux-thunk 是一个比较流行的 redux 异步 action 中间件，比如 action 中有 setTimeout 或者通过  fetch 通用远程 API 这些场景，那么就应该使用 redux-thunk 了。redux-thunk 帮助统一了异步和同步 action 的调用方式，把异步过程放在 action 级别解决，对 component 没有影响。
 
 ###redux-router
-暂未引入
+主要用来将路由的状态保存于redux store中
+
 
 ####isomorphic-fetch
 提供fetch api支持，同时支持nodejs和浏览器环境（前后端同构）
@@ -115,6 +116,9 @@ webpack有很多优化手段减少静态文件大小，并且通过生成hash值
 /**
  * Created by candice on 17/1/26.
  */
+/**
+ * Created by candice on 17/1/26.
+ */
 const path = require('path'),
     webpack = require('webpack'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
@@ -131,37 +135,57 @@ module.exports = {
         vendor: [
             'react',
             'react-dom',
+            'react-router',
             'redux',
             'react-redux',
+            'react-router-redux',
+            'redux-thunk',
             'es6-promise',
-            'isomorphic-fetch'
+            'isomorphic-fetch',
         ]
     },
     output: {
         path: path.resolve(__dirname, '../build/client'),
         filename: 'js/[name].js',
-        chunkFilename: 'js/chunk.[name]-[hash].js',
+        chunkFilename: 'js/chunk.[name].js',
         publicPath: '/'
     },
     module: {
-        loaders: [{
-            test: /\.js$/,
-            exclude: /node_modules/,
-            loader: 'babel',
-            query: {
-                presets: ['es2015', 'react', 'stage-0', 'react-hmre'],
-            }
-        }, {
-            test: /\.scss$/,
-            loaders: [
-                'style',
-                'css?modules&camelCase&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:8]',
-                'sass'
-            ]
-        }, {
-            test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)/,
-            loader: 'url?limit=8000&name=img/[name]-[hash].[ext]'
-        },
+        loaders: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel',
+                query: {
+                    presets: ['es2015', 'react', 'stage-0', 'react-hmre'],
+                }
+            },
+            {
+                test: /\.scss$/,
+                exclude: /global/,
+                loaders: [
+                    'style',
+                    'css?modules&camelCase&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:8]',
+                    'sass'
+                ]
+            },
+            {
+                test: /\.scss/,
+                include: /global/,
+                loaders: [
+                    'style',
+                    'css',
+                    'sass'
+                ]
+            },
+            {
+                test: /\.(png|jpg|jpeg|gif)$/,
+                loader: 'url?limit=8000&name=img/[name].[ext]'
+            },
+            {
+                test: /\.(woff|woff2|ttf|eot|svg)/,
+                loader: 'url?limit=8000&name=img/[name].[ext]'
+            },
             {
                 test: /\.json$/,
                 loader: 'json'
@@ -199,14 +223,11 @@ module.exports = {
 
 /client/     前端目录
      /common/ 公共代码
-             /actions/   redux actions
              /assets/    公共静态资源
              /components/   公共木偶组件
              /containers/   公共智能组件
-             /reducers/     redux reducers
              /sass/         公共样式和公共组件样式
-             /store/        redux store
-             /util/         工具类与函数
+             /helpers/         工具类与函数
              /config/       配置相关
      /module_a/ a模块
              /components/
@@ -216,6 +237,10 @@ module.exports = {
              /components/   木偶组件
              /containers/   智能组件
              /sass/         样式
+     /redux/   redux duck
+            /middleware/ redux中间件
+            /modules/   redux模块action、reducer定义
+            /store/    redux store
      /index.html   入口html文件
      /index.js     入口js文件
      /routes.js    路由文件
